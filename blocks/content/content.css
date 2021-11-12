@@ -1,0 +1,22 @@
+.content {
+  display: grid;
+  grid-template-rows: min-content auto min-content;
+  grid-template-areas:
+    "header"
+    "main"
+    "footer";
+    justify-items: center;
+
+  min-width: 320px;
+  width: 100%;
+  min-height: 100vh;
+
+  color: #fff;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.14;
+
+
+  background-color: #000;
+}

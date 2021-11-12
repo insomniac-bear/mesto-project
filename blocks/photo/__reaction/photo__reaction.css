@@ -1,0 +1,20 @@
+.photo__reaction {
+  display: block;
+
+  width: 22px;
+  height: 28px;
+
+  background-color: initial;
+  background-image: url(../../../images/icon-heart.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  border: none;
+
+  transition: opacity .3s ease;
+  cursor: pointer;
+}
+
+.photo__reaction:hover {
+  opacity: .5;
+}
