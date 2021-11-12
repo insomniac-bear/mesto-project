@@ -6,6 +6,8 @@
 
   border: 1px solid #fff;
   background-color: inherit;
+  background-repeat: no-repeat;
+  background-position: center;
 
   cursor: pointer;
   transition: opacity .3s ease;

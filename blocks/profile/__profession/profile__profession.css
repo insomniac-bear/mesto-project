@@ -1,6 +1,10 @@
 .profile__profession {
+  grid-area: profession;
   margin: 0;
   padding: 0;
 
   line-height: 1.22;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }

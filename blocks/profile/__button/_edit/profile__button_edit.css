@@ -1,9 +1,10 @@
 .profile__button_edit {
+  grid-area: edit-button;
   align-self: end;
   margin-bottom: 8px;
 
   width: 24px;
   height: 24px;
 
-  stroke: #fff;
+  background-image: url(../../../../images/icon-pen.svg);
 }
