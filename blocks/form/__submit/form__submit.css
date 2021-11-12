@@ -1,6 +1,6 @@
 .form__submit {
-  margin: 48px 0 0 0;
-  padding: 14px 0 18px 0;
+  margin: 47px 0 0 0;
+  padding: 15px 0;
   box-sizing: border-box;
 
   width: 100%;
@@ -20,4 +20,10 @@
 
 .form__submit:hover {
   opacity: .8;
+}
+
+@media screen and (max-width: 767px) {
+  .form__submit {
+    font-size: 14px;
+  }
 }

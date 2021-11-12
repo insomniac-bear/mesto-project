@@ -8,3 +8,10 @@
 
   background-image: url(../../../../images/icon-pen.svg);
 }
+
+@media screen and (max-width: 767px) {
+  .profile__button_edit {
+    width: 18px;
+    height: 18px;
+  }
+}

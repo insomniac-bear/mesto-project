@@ -11,6 +11,10 @@
   height: 32px;
 
   background-color: initial;
+  background-image: url(../../../images/icon-close.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+
   border: none;
   fill: #fff;
   transition: opacity .3s ease;
@@ -19,4 +23,17 @@
 
 .popup__close-button:hover {
   opacity: .6;
+}
+
+@media screen and (max-width: 787px) {
+  .popup__close-button {
+    right: 0;
+    bottom: calc(100% + 16px);
+    left: auto;
+
+    width: 20px;
+    height: 20px;
+
+    background-image: url(../../../images/icon-close-mobile.svg);
+  }
 }

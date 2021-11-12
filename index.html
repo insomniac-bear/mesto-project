@@ -13,7 +13,7 @@
       <h1 class="logo">Mesto<span class="logo__up-text"> Russia</span></h1>
     </header>
     <main class="main">
-      <section class="profile">
+      <section class="profile" aria-label="Профиль пользователя">
         <div class="profile__avatar"></div>
         <div class="profile__info">
           <p class="profile__name">Жак-Ив Кусто</p>
@@ -24,7 +24,7 @@
         <button class="profile__button profile__button_add-new">
         </button>
       </section>
-      <section class="photos">
+      <section class="photos" aria-label="Фотографии пользователя">
         <figure class="photo">
           <img src="./images/karachaevsk.jpg" class="photo__image" alt="Разрушенная часовня">
           <figcaption class="photo__description">
@@ -76,9 +76,6 @@
     <div class="popup">
       <div class="popup__container">
         <button class="popup__close-button">
-          <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-            <path d="M32 28.8L19.2 16L32 3.2L28.8 0L16 12.8L3.2 0L0 3.2L12.8 16L0 28.8L3.2 32L16 19.2L28.8 32L32 28.8Z"/>
-          </svg>
         </button>
         <form action="ECHO" class="form">
           <h2 class="form__title">Редактировать профиль</h2>
