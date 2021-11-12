@@ -28,3 +28,5 @@
 3. CSS3 - с использованием flexbox и grid
 
 **Ссылка на опубликованный проект**
+
+* [Опубликованная страница](https://insomniac-bear.github.io/mesto-project/)
