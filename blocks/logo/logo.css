@@ -1,14 +1,13 @@
 .logo {
+  display: block;
   margin: 0;
   padding: 0;
 
-  font-size: 35px;
-  font-weight: 400;
-  line-height: 1;
+  width: 142px;
 }
 
 @media screen and (max-width: 887px) {
   .logo {
-    font-size: 27px;
+    width: 104px;
   }
 }
