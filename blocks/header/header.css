@@ -1,17 +1,17 @@
 .header {
-  padding: 47px 0 36px 0;
+  padding: 45px 0 40px 0;
   box-sizing: border-box;
 
   max-width: 880px;
   min-width: 320px;
   width: 88.12%;
 
-  border-bottom: 1px solid #545454;
+  border-bottom: 1px solid rgba(84, 84, 84, .7);
 }
 
 @media screen and (max-width: 767px) {
   .header {
-    padding: 28px 8%;
+    padding: 28px 8% 32px;
     width: 100%
   }
 }

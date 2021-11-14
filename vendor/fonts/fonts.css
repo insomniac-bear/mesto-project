@@ -11,8 +11,8 @@
 @font-face {
   font-family: Inter;
   src:
-    url(./Inter-SemiBold.woff2) format('woff2'),
-    url(./Inter-SemiBold.woff) format('woff');
+    url(./Inter-Medium.woff2) format('woff2'),
+    url(./Inter-Medium.woff) format('woff');
   
   font-weight: 500;
   font-style: normal;
