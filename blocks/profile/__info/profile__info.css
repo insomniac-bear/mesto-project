@@ -5,7 +5,6 @@
     "name edit-button"
     "profession profession";
   gap: 8px 19px;
-
   min-width: 282px;
   max-width: 580px;
   width: 100%;
@@ -17,7 +16,6 @@
     justify-content: center;
     justify-items: center;
     gap: 14px 10px;
-
     width: 88.12%;
   }
 }

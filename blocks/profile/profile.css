@@ -2,7 +2,6 @@
   display: grid;
   grid-template-columns: min-content auto min-content;
   padding-top: 40px;
-
   min-width: 282px;
   max-width: 880px;
   width: 100%;

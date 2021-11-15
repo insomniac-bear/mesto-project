@@ -2,9 +2,7 @@
   grid-area: profession;
   margin: 0;
   padding: 0;
-
   max-width: 580px;
-
   line-height: 1.22;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -14,7 +12,6 @@
 @media screen and (max-width: 767px) {
   .profile__profession {
     max-width: 282px;
-
     font-size: 14px;
   }
 }

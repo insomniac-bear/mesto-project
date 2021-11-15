@@ -2,21 +2,16 @@
   align-self: center;
   margin: 0;
   padding: 50px 0 0 0;
-
   box-sizing: border-box;
-
   min-width: 150px;
   max-width: 288px;
   width: 100%;
-
   border: 2px solid #fff;
   border-radius: 2px;
-
   background-color: inherit;
   background-image: url(../../../images/icon-add.svg);
   background-repeat: no-repeat;
   background-position: center;
-
   cursor: pointer;
   transition: opacity .3s ease;
 }
