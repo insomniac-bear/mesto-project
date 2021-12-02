@@ -73,23 +73,21 @@
       <p class="footer__copyright">© 2021 Mesto Russia</p>
     </footer>
 
-    <div class="popup">
+    <div class="popup popup_type_edit-profile">
       <div class="popup__container">
         <button class="popup__close-button">
         </button>
-        <form action="ECHO" name="profile-edit-form" class="form">
+        <form action="ECHO" name="profile-edit-form" class="form form_type_edit-profile">
           <h2 class="form__title">Редактировать профиль</h2>
           <input
             type="text"
             name="user-name"
-            value="Жак-Ив Кусто"
             class="form__item form__item_el_name"
             placeholder="Имя и Фамилия"
           >
           <input
             type="text"
             name="user-profession"
-            value="Исследователь океана"
             class="form__item form__item_el_profession"
             placeholder="Род деятельности"
           >
@@ -98,5 +96,6 @@
       </div>
     </div>
   </div>
+  <script src="./script.js"></script>
 </body>
 </html>
