@@ -1,7 +1,6 @@
 function closePopup (popupElement) {
   popupElement.classList.remove('popup_opened');
 };
-
 /* 
 * Реализация функционала открытия и закрытия попапа
 * редактирования профиля
@@ -37,7 +36,6 @@ function openEditProfilePopup () {
   }, {once: true});
 };
 editProfileButton.addEventListener('click', openEditProfilePopup);
-
 /**
  * Реализация функционала наполнения страницы стартовыми
  * карточками
@@ -69,7 +67,7 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
-function renderCard (imageLink, imageName) {
+function prepareMarkupCard (imageLink, imageName) {
   return (`
     <article class="photo">
       <div class="photo__image" style="background-image: url(${imageLink})"></div>
@@ -81,7 +79,7 @@ function renderCard (imageLink, imageName) {
   `);
 }
 for (let i = 0; i < initialCards.length; i++) {
-  photosContainer.insertAdjacentHTML('beforeend', renderCard(initialCards[i].link, initialCards[i].name));
+  photosContainer.insertAdjacentHTML('beforeend', prepareMarkupCard(initialCards[i].link, initialCards[i].name));
 }
 /* 
 * Реализация функционала открытия и закрытия попапа
@@ -93,13 +91,23 @@ const addNewCardPopup = document.querySelector('.popup_type_add-card');
 function openAddNewCardPopup () {
   // Выбираем управляющие элементы попапа
   const closeAddCardPopupButton = addNewCardPopup.querySelector('.popup__close-button_place_add-card');
+  const addNewCardForm = addNewCardPopup.querySelector('.form_type_add-card');
+  const mestoNameInput = addNewCardForm.querySelector('.form__item_el_mesto-name');
+  const imageUrlInput = addNewCardForm.querySelector('.form__item_el_image-url');
+  // Функция обработки отправки формы
+  function addCardFormHandler (evt) {
+    evt.preventDefault();
+    photosContainer.insertAdjacentHTML('afterbegin', prepareMarkupCard(imageUrlInput.value, mestoNameInput.value));
+    imageUrlInput.value = '';
+    mestoNameInput.value = '';
+    closePopup(addNewCardPopup);
+  };
   // Устанавливаем обработчики событий на элементы управления попапа
-  // editProfileForm.addEventListener('submit', editProfileFormHandler, {once: true});
+  addNewCardForm.addEventListener('submit', addCardFormHandler, {once: true});
   closeAddCardPopupButton.addEventListener('click', function () {
     closePopup(addNewCardPopup)
   }, {once: true});
 
   addNewCardPopup.classList.add('popup_opened');
 };
-
 addNewCardButton.addEventListener('click', openAddNewCardPopup);
