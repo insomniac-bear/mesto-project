@@ -33,7 +33,7 @@
 
     <div class="popup popup_type_edit-profile">
       <div class="popup__container">
-        <button class="popup__close-button">
+        <button class="popup__close-button popup__close-button_place_edit-profile">
         </button>
         <form action="ECHO" name="profile-edit-form" class="form form_type_edit-profile">
           <h2 class="form__title">Редактировать профиль</h2>
@@ -42,14 +42,44 @@
             name="user-name"
             class="form__item form__item_el_name"
             placeholder="Имя и Фамилия"
+            minlength="3"
+            required
           >
           <input
             type="text"
             name="user-profession"
             class="form__item form__item_el_profession"
             placeholder="Род деятельности"
+            minlength="3"
+            required
           >
           <button type="submit" class="form__submit">Сохранить</button>
+        </form>
+      </div>
+    </div>
+    <div class="popup popup_type_add-card">
+      <div class="popup__container">
+        <button class="popup__close-button popup__close-button_place_add-card"></button>
+        <form action="echo" class="form form_type_add-card">
+          <h2 class="form__title">Новое место</h2>
+            <input
+              type="text"
+              name="mesto-name"
+              class="form__item form__item_el_mesto-name"
+              placeholder="Название"
+              minlength="1"
+              maxlength="40"
+              required
+            >
+            <input
+              type="text"
+              name="image-url"
+              class="form__item form__item_el_image-url"
+              placeholder="Ссылка на картинку"
+              minlength="4"
+              required
+            >
+            <button type="submit" class="form__submit">Сооздать</button>
         </form>
       </div>
     </div>
