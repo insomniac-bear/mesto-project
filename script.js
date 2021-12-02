@@ -1,3 +1,29 @@
+const initialCards = [
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+];
 function closePopup (popupElement) {
   popupElement.classList.remove('popup_opened');
 };
@@ -36,50 +62,41 @@ function openEditProfilePopup () {
   }, {once: true});
 };
 editProfileButton.addEventListener('click', openEditProfilePopup);
+/* 
+* Реализация функционала лайка карточки
+*/
+function addReactionListener (button) {
+  button.addEventListener('click', function () {
+    button.classList.toggle('photo__reaction_active');
+  });
+}
 /**
  * Реализация функционала наполнения страницы стартовыми
  * карточками
  */
 const photosContainer = document.querySelector('.photos');
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-function prepareMarkupCard (imageLink, imageName) {
-  return (`
-    <article class="photo">
-      <div class="photo__image" style="background-image: url(${imageLink})"></div>
-      <div class="photo__description">
-        <h2 class="photo__description-text">${imageName}</h2>
-        <button type="button" class="photo__reaction" aria-label="Нравится"></button>
-      </div>
-    </article>
-  `);
+function createCardElement (imageLink, imageName) {
+  const photoElement = document.createElement('article');
+  photoElement.classList.add('photo');
+  const imageElement =document.createElement('div');
+  imageElement.classList.add('photo__image');
+  imageElement.style = `background-image: url(${imageLink})`;
+  const descriptionElement = document.createElement('div');
+  descriptionElement.classList.add('photo__description');
+  const descriptionTextElement = document.createElement('h2');
+  descriptionTextElement.classList.add('photo__description-text');
+  descriptionTextElement.textContent = imageName;
+  const buttonReaction = document.createElement('button');
+  buttonReaction.classList.add('photo__reaction');
+  buttonReaction.ariaLabel = 'Нравится';
+  addReactionListener(buttonReaction);
+  descriptionElement.append(descriptionTextElement, buttonReaction);
+  photoElement.append(imageElement, descriptionElement);
+  return photoElement;
 }
 for (let i = 0; i < initialCards.length; i++) {
-  photosContainer.insertAdjacentHTML('beforeend', prepareMarkupCard(initialCards[i].link, initialCards[i].name));
+  const card = createCardElement(initialCards[i].link, initialCards[i].name);
+  photosContainer.append(card);
 }
 /* 
 * Реализация функционала открытия и закрытия попапа
@@ -97,7 +114,7 @@ function openAddNewCardPopup () {
   // Функция обработки отправки формы
   function addCardFormHandler (evt) {
     evt.preventDefault();
-    photosContainer.insertAdjacentHTML('afterbegin', prepareMarkupCard(imageUrlInput.value, mestoNameInput.value));
+    photosContainer.prepend(createCardElement(imageUrlInput.value, mestoNameInput.value));
     imageUrlInput.value = '';
     mestoNameInput.value = '';
     closePopup(addNewCardPopup);
