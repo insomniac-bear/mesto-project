@@ -1,7 +1,11 @@
 .photo__image {
   display: block;
   margin: 0;
-  padding: 0;
+  padding: 0 0 100% 0;
   min-width: 282px;
   width: 100%;
+
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
