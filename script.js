@@ -1,3 +1,6 @@
+/**
+ * Объявение служебных сущностей
+ */
 const initialCards = [
   {
     name: 'Архыз',
@@ -24,6 +27,10 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
+const photoCardTemplate = document.querySelector('#photo-template').content;
+function openPopup (popupElement) {
+  popupElement.classList.add('popup_opened');
+};
 function closePopup (popupElement) {
   popupElement.classList.remove('popup_opened');
 };
@@ -39,7 +46,7 @@ const profileProfession = profile.querySelector('.profile__profession');
 const editProfileButton = profile.querySelector('.profile__button-edit');
 // Функция открытия попапа редактирования профиля
 function openEditProfilePopup () {
-  editProfilePopup.classList.add('popup_opened');
+  openPopup(editProfilePopup);
   // Выбираем управляющие элементы попапа
   const closeProfileButton = editProfilePopup.querySelector('.popup__close-button_place_edit-profile');
   const editProfileForm = editProfilePopup.querySelector('.form_type_edit-profile');
@@ -69,30 +76,27 @@ function addReactionListener (button) {
   button.addEventListener('click', function () {
     button.classList.toggle('photo__reaction_active');
   });
-}
+};
+/**
+ * Реализация функционала удаления карточки
+ */
+function deleteCard (evt) {
+  const deleteButton = evt.target;
+  const cardItem = deleteButton.closest('.photo');
+  cardItem.remove();
+};
 /**
  * Реализация функционала наполнения страницы стартовыми
  * карточками
  */
 const photosContainer = document.querySelector('.photos');
 function createCardElement (imageLink, imageName) {
-  const photoElement = document.createElement('article');
-  photoElement.classList.add('photo');
-  const imageElement =document.createElement('div');
-  imageElement.classList.add('photo__image');
-  imageElement.style = `background-image: url(${imageLink})`;
-  const descriptionElement = document.createElement('div');
-  descriptionElement.classList.add('photo__description');
-  const descriptionTextElement = document.createElement('h2');
-  descriptionTextElement.classList.add('photo__description-text');
-  descriptionTextElement.textContent = imageName;
-  const buttonReaction = document.createElement('button');
-  buttonReaction.classList.add('photo__reaction');
-  buttonReaction.ariaLabel = 'Нравится';
-  addReactionListener(buttonReaction);
-  descriptionElement.append(descriptionTextElement, buttonReaction);
-  photoElement.append(imageElement, descriptionElement);
-  return photoElement;
+  const photoCard = photoCardTemplate.cloneNode(true);
+  photoCard.querySelector('.photo__image').style = `background-image: url(${imageLink})`;
+  photoCard.querySelector('.photo__description-text').textContent = imageName;
+  addReactionListener(photoCard.querySelector('.photo__reaction'));
+  photoCard.querySelector('.photo__delete-button').addEventListener('click', deleteCard);
+  return photoCard;
 }
 for (let i = 0; i < initialCards.length; i++) {
   const card = createCardElement(initialCards[i].link, initialCards[i].name);
@@ -125,6 +129,6 @@ function openAddNewCardPopup () {
     closePopup(addNewCardPopup)
   }, {once: true});
 
-  addNewCardPopup.classList.add('popup_opened');
+  openPopup(addNewCardPopup);
 };
 addNewCardButton.addEventListener('click', openAddNewCardPopup);
