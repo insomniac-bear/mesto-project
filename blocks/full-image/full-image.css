@@ -1,0 +1,8 @@
+.full-image {
+  position: relative;
+  margin: auto;
+  max-width: 75vw;
+  min-width: 240px;
+  width: auto;
+  background-color: initial;
+}

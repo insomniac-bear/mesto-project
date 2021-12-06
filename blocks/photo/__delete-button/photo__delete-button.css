@@ -12,6 +12,7 @@
   background-size: contain;
   background-position: center;
   transition: opacity .3s ease;
+  cursor: pointer;
 }
 
 .photo__delete-button:hover {

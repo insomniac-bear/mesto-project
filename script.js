@@ -85,6 +85,22 @@ function deleteCard (evt) {
   const cardItem = deleteButton.closest('.photo');
   cardItem.remove();
 };
+/*
+* Реализация функционала открытия полноразмерного фото
+*/
+function onImageButtonClick (evt) {
+  const imageButton = evt.target;
+  const photoDescription = imageButton.closest('.photo').textContent;
+  const popup = document.querySelector('.popup_type_full-image');
+  const fullImage = popup.querySelector('.full-image__picture');
+  fullImage.src = imageButton.dataset.image;
+  fullImage.alt = photoDescription;
+  popup.querySelector('.full-image__description').textContent = photoDescription;
+  openPopup(popup);
+  popup.querySelector('.popup__close-button_place_full-image').addEventListener('click', function () {
+    closePopup(popup);
+  }, {once: true});
+};
 /**
  * Реализация функционала наполнения страницы стартовыми
  * карточками
@@ -92,7 +108,10 @@ function deleteCard (evt) {
 const photosContainer = document.querySelector('.photos');
 function createCardElement (imageLink, imageName) {
   const photoCard = photoCardTemplate.cloneNode(true);
-  photoCard.querySelector('.photo__image').style = `background-image: url(${imageLink})`;
+  const imageButton = photoCard.querySelector('.photo__image');
+  imageButton.style = `background-image: url(${imageLink})`;
+  imageButton.dataset.image = imageLink;
+  imageButton.addEventListener('click', onImageButtonClick);
   photoCard.querySelector('.photo__description-text').textContent = imageName;
   addReactionListener(photoCard.querySelector('.photo__reaction'));
   photoCard.querySelector('.photo__delete-button').addEventListener('click', deleteCard);
