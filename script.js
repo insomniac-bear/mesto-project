@@ -1,6 +1,3 @@
-/**
- * Объявение служебных сущностей
- */
 const initialCards = [
   {
     name: 'Архыз',
@@ -33,23 +30,23 @@ const profileName = profile.querySelector('.profile__name');
 const profileProfession = profile.querySelector('.profile__profession');
 const editProfileButton = profile.querySelector('.profile__button-edit');
 const addNewCardButton = profile.querySelector('.profile__button-add');
-const closeProfileButton = editProfilePopup.querySelector('.popup__close-button_place_edit-profile');
 const editProfileForm = editProfilePopup.querySelector('.form_type_edit-profile');
 const nameInput = editProfilePopup.querySelector('.form__item_el_name');
 const professionInput = editProfilePopup.querySelector('.form__item_el_profession');
 const popup = document.querySelector('.popup_type_full-image');
 const fullImage = popup.querySelector('.full-image__picture');
 const addNewCardPopup = document.querySelector('.popup_type_add-card');
-const closeAddCardPopupButton = addNewCardPopup.querySelector('.popup__close-button_place_add-card');
 const addNewCardForm = addNewCardPopup.querySelector('.form_type_add-card');
 const mestoNameInput = addNewCardForm.querySelector('.form__item_el_mesto-name');
 const imageUrlInput = addNewCardForm.querySelector('.form__item_el_image-url');
 const photoCardTemplate = document.querySelector('#photo-template').content;
+
+const allPopups = document.querySelectorAll('.popup');
+function closePopup(element) {
+  element.classList.remove('popup_opened');
+}
 function openPopup (popupElement) {
   popupElement.classList.add('popup_opened');
-};
-function closePopup (popupElement) {
-  popupElement.classList.remove('popup_opened');
 };
 function editProfileFormHandler (evt) {
   evt.preventDefault();
@@ -58,9 +55,6 @@ function editProfileFormHandler (evt) {
   closePopup(editProfilePopup);
 };
 editProfileForm.addEventListener('submit', editProfileFormHandler);
-closeProfileButton.addEventListener('click', function () {
-  closePopup(editProfilePopup)
-});
 function openEditProfilePopup () {
   openPopup(editProfilePopup);
   nameInput.value = profileName.textContent;
@@ -74,9 +68,6 @@ function addCardFormHandler (evt) {
   closePopup(addNewCardPopup);
 };
 addNewCardForm.addEventListener('submit', addCardFormHandler);
-closeAddCardPopupButton.addEventListener('click', function () {
-  closePopup(addNewCardPopup)
-});
 editProfileButton.addEventListener('click', openEditProfilePopup);
 function addReactionListener (button) {
   button.addEventListener('click', function () {
@@ -96,9 +87,6 @@ function clickOnImageButton (evt) {
   popup.querySelector('.full-image__description').textContent = photoDescription;
   openPopup(popup);
 };
-popup.querySelector('.popup__close-button_place_full-image').addEventListener('click', function () {
-  closePopup(popup);
-});
 const photosContainer = document.querySelector('.photos');
 function createCardElement (imageLink, imageName) {
   const photoCard = photoCardTemplate.cloneNode(true);
@@ -111,11 +99,29 @@ function createCardElement (imageLink, imageName) {
   photoCard.querySelector('.photo__delete-button').addEventListener('click', deleteCard);
   return photoCard;
 }
-for (let i = 0; i < initialCards.length; i++) {
-  const card = createCardElement(initialCards[i].link, initialCards[i].name);
-  photosContainer.append(card);
-}
+initialCards.forEach(function (card) {
+  const newCard = createCardElement(card.link, card.name);
+  photosContainer.append(newCard);
+});
 function openAddNewCardPopup () {
   openPopup(addNewCardPopup);
 };
 addNewCardButton.addEventListener('click', openAddNewCardPopup);
+
+allPopups.forEach(function (element) {
+  element.addEventListener('click', function (evt) {
+    if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close-button')) {
+      closePopup(element);
+    }
+  });
+});
+
+document.addEventListener('keydown', function (evt) {
+  if (evt.key === 'Escape') {
+    allPopups.forEach(function (element) {
+      if (element.classList.contains('popup_opened')) {
+        closePopup(element);
+      }
+    });
+  }
+});
