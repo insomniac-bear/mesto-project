@@ -18,15 +18,6 @@
   opacity: .8;
 }
 
-.form__submit_inactive {
-  background-color: inherit;
-  opacity: .2;
-  color: #000;
-  border: 1px solid #000;
-  pointer-events: none;
-  user-select: none;
-}
-
 @media screen and (max-width: 767px) {
   .form__submit {
     font-size: 14px;

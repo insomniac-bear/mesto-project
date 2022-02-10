@@ -35,26 +35,32 @@
       <div class="popup__container">
         <button class="popup__close-button popup__close-button_place_edit-profile">
         </button>
-        <form action="ECHO" name="profile-edit-form" class="form form_type_edit-profile">
+        <form name="profile-edit-form" class="form form_type_edit-profile">
           <h2 class="form__title">Редактировать профиль</h2>
           <input
+            id="name-input"
             type="text"
             name="user-name"
             class="form__item form__item_el_name"
             placeholder="Имя и Фамилия"
-            minlength="3"
+            minlength="2"
+            maxlength="40"
             required
             aria-label="Поле ввода имя и фамилия"
           >
+          <span class="form__item-error name-input-error"></span>
           <input
+            id="profession-input"
             type="text"
             name="user-profession"
             class="form__item form__item_el_profession"
             placeholder="Род деятельности"
-            minlength="3"
+            minlength="2"
+            maxlength="200"
             required
             aria-label="Поле ввода род дейятельности"
           >
+          <span class="form__item-error profession-input-error"></span>
           <button type="submit" class="form__submit" aria-label="Сохранить профиль">Сохранить</button>
         </form>
       </div>
@@ -62,27 +68,30 @@
     <div class="popup popup_type_add-card">
       <div class="popup__container">
         <button class="popup__close-button popup__close-button_place_add-card"></button>
-        <form action="echo" class="form form_type_add-card">
+        <form name="new-place" class="form form_type_add-card" novalidate>
           <h2 class="form__title">Новое место</h2>
             <input
+              id="place-input"
               type="text"
               name="mesto-name"
               class="form__item form__item_el_mesto-name"
               placeholder="Название"
-              minlength="1"
-              maxlength="40"
+              minlength="2"
+              maxlength="30"
               required
               aria-label="Поле ввода названия места"
             >
+            <span class="form__item-error place-input-error"></span>
             <input
-              type="text"
+              id="url-input"
+              type="url"
               name="image-url"
               class="form__item form__item_el_image-url"
               placeholder="Ссылка на картинку"
-              minlength="4"
               required
               aria-label="Поле ввода ссылки на картинку"
             >
+            <span class="form__item-error url-input-error"></span>
             <button type="submit" class="form__submit" aria-label="Сохранить новое место">Создать</button>
         </form>
       </div>
