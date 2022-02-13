@@ -1,54 +1,55 @@
-import { closePopup, initialCards, openPopup } from './components/utils.js';
+import { closePopup, initialCards } from './components/utils.js';
 import { enableValidation } from './components/validate.js';
-import { initializationCards, createCardElement } from './components/card.js';
-
-const photosContainer = document.querySelector('.photos');
+import { initializationCards } from './components/card.js';
+import { editProfileFormHandler, openEditProfilePopup, addCardFormHandler, openAddNewCardPopup } from './components/modal.js';
 
 const editProfilePopup = document.querySelector('.popup_type_edit-profile');
 const profile = document.querySelector('.profile');
-const profileName = profile.querySelector('.profile__name');
-const profileProfession = profile.querySelector('.profile__profession');
 const editProfileButton = profile.querySelector('.profile__button-edit');
 const addNewCardButton = profile.querySelector('.profile__button-add');
 const editProfileForm = editProfilePopup.querySelector('.form_type_edit-profile');
-const nameInput = editProfilePopup.querySelector('.form__item_el_name');
-const professionInput = editProfilePopup.querySelector('.form__item_el_profession');
-const popup = document.querySelector('.popup_type_full-image');
-const fullImage = popup.querySelector('.full-image__picture');
 const addNewCardPopup = document.querySelector('.popup_type_add-card');
 const addNewCardForm = addNewCardPopup.querySelector('.form_type_add-card');
-const mestoNameInput = addNewCardForm.querySelector('.form__item_el_mesto-name');
-const imageUrlInput = addNewCardForm.querySelector('.form__item_el_image-url');
-const photoCardTemplate = document.querySelector('#photo-template').content;
 
 const allPopups = document.querySelectorAll('.popup');
 
-function editProfileFormHandler (evt) {
+editProfileForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
-  profileName.textContent = nameInput.value;
-  profileProfession.textContent = professionInput.value;
-  closePopup(editProfilePopup);
-};
-editProfileForm.addEventListener('submit', editProfileFormHandler);
-function openEditProfilePopup () {
-  openPopup(editProfilePopup);
-  nameInput.value = profileName.textContent;
-  professionInput.value = profileProfession.textContent;
-};
-function addCardFormHandler (evt) {
-  evt.preventDefault();
-  photosContainer.prepend(createCardElement(photoCardTemplate, imageUrlInput.value, mestoNameInput.value));
-  imageUrlInput.value = '';
-  mestoNameInput.value = '';
-  closePopup(addNewCardPopup);
-};
-addNewCardForm.addEventListener('submit', addCardFormHandler);
-editProfileButton.addEventListener('click', openEditProfilePopup);
+  editProfileFormHandler({
+    editProfilePopupSelector: 'popup_type_edit-profile',
+    profileSelector: 'profile',
+    profileNameSelector: 'profile__name',
+    profileProfessionSelector: 'profile__profession',
+    nameInputSelector: 'form__item_el_name',
+    professionInputSelector: 'form__item_el_profession',
+  });
+});
 
-function openAddNewCardPopup () {
-  openPopup(addNewCardPopup);
-};
-addNewCardButton.addEventListener('click', openAddNewCardPopup);
+editProfileButton.addEventListener('click', () => openEditProfilePopup({
+  editProfilePopupSelector: 'popup_type_edit-profile',
+  profileSelector: 'profile',
+  profileNameSelector: 'profile__name',
+  profileProfessionSelector: 'profile__profession',
+  nameInputSelector: 'form__item_el_name',
+  professionInputSelector: 'form__item_el_profession',
+}));
+
+addNewCardForm.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  addCardFormHandler({
+    addNewCardPopupSelector: 'popup_type_add-card',
+    photosContainerSelector: 'photos',
+    photoCardTemplateSelector: 'photo-template',
+    imageUrlInputSelector: 'form__item_el_image-url',
+    mestoNameInputSelector: 'form__item_el_mesto-name',
+  })
+});
+
+addNewCardButton.addEventListener('click', () => {
+  openAddNewCardPopup({
+    addNewCardPopupSelector: 'popup_type_add-card',
+  });
+});
 
 allPopups.forEach(function (element) {
   element.addEventListener('click', function (evt) {
@@ -77,4 +78,9 @@ enableValidation({
   errorClass: 'form__item-error_active',
 });
 
-initializationCards(photoCardTemplate, initialCards, photosContainer);
+initializationCards({
+  photoCardTemplateSelector: 'photo-template',
+  initialCards,
+  photosContainerSelector: 'photos',
+  imagePopupSelector: 'popup_type_full-image'
+});
