@@ -1,30 +1,9 @@
+import { closePopup, initialCards, openPopup } from './components/utils.js';
 import { enableValidation } from './components/validate.js';
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
+import { initializationCards, createCardElement } from './components/card.js';
+
+const photosContainer = document.querySelector('.photos');
+
 const editProfilePopup = document.querySelector('.popup_type_edit-profile');
 const profile = document.querySelector('.profile');
 const profileName = profile.querySelector('.profile__name');
@@ -43,12 +22,7 @@ const imageUrlInput = addNewCardForm.querySelector('.form__item_el_image-url');
 const photoCardTemplate = document.querySelector('#photo-template').content;
 
 const allPopups = document.querySelectorAll('.popup');
-function closePopup(element) {
-  element.classList.remove('popup_opened');
-}
-function openPopup (popupElement) {
-  popupElement.classList.add('popup_opened');
-};
+
 function editProfileFormHandler (evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
@@ -63,48 +37,13 @@ function openEditProfilePopup () {
 };
 function addCardFormHandler (evt) {
   evt.preventDefault();
-  photosContainer.prepend(createCardElement(imageUrlInput.value, mestoNameInput.value));
+  photosContainer.prepend(createCardElement(photoCardTemplate, imageUrlInput.value, mestoNameInput.value));
   imageUrlInput.value = '';
   mestoNameInput.value = '';
   closePopup(addNewCardPopup);
 };
 addNewCardForm.addEventListener('submit', addCardFormHandler);
 editProfileButton.addEventListener('click', openEditProfilePopup);
-function addReactionListener (button) {
-  button.addEventListener('click', function () {
-    button.classList.toggle('photo__reaction_active');
-  });
-};
-function deleteCard (evt) {
-  const deleteButton = evt.target;
-  const cardItem = deleteButton.closest('.photo');
-  cardItem.remove();
-};
-function clickOnImageButton (evt) {
-  const imageButton = evt.target;
-  const photoDescription = imageButton.closest('.photo').textContent;
-  fullImage.src = imageButton.dataset.image;
-  fullImage.alt = photoDescription;
-  popup.querySelector('.full-image__description').textContent = photoDescription;
-  openPopup(popup);
-};
-const photosContainer = document.querySelector('.photos');
-function createCardElement (imageLink, imageName) {
-  const photoCard = photoCardTemplate.cloneNode(true);
-  const imageButton = photoCard.querySelector('.photo__image');
-  imageButton.style = `background-image: url(${imageLink})`;
-  imageButton.dataset.image = imageLink;
-  imageButton.addEventListener('click', clickOnImageButton);
-  photoCard.querySelector('.photo__description-text').textContent = imageName;
-  addReactionListener(photoCard.querySelector('.photo__reaction'));
-  photoCard.querySelector('.photo__delete-button').addEventListener('click', deleteCard);
-  return photoCard;
-}
-
-initialCards.forEach(function (card) {
-  const newCard = createCardElement(card.link, card.name);
-  photosContainer.append(newCard);
-});
 
 function openAddNewCardPopup () {
   openPopup(addNewCardPopup);
@@ -136,4 +75,6 @@ enableValidation({
   inactiveButtonClass: 'form__submit_inactive',
   inputErrorClass: 'form__item_type_error',
   errorClass: 'form__item-error_active',
-})
+});
+
+initializationCards(photoCardTemplate, initialCards, photosContainer);
