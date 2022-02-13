@@ -34,7 +34,6 @@ export function createCardElement (cardTemplate, imageLink, imageName) {
 export function initializationCards (cardTemplate, initialCards, cardContainer) {
   initialCards.forEach(function (card) {
     const newCard = createCardElement(cardTemplate, card.link, card.name);
-    // photosContainer.append(newCard);
     cardContainer.append(newCard);
   });
   }
