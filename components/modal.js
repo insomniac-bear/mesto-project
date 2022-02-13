@@ -27,14 +27,14 @@ export function openEditProfilePopup ({ editProfilePopupSelector, profileSelecto
   openPopup(editProfilePopup);
 };
 
-export function addCardFormHandler ({ addNewCardPopupSelector, photosContainerSelector, photoCardTemplateSelector, imageUrlInputSelector, mestoNameInputSelector }) {
+export function addCardFormHandler ({ addNewCardPopupSelector, photosContainerSelector, photoCardTemplateSelector, imageUrlInputSelector, mestoNameInputSelector, imagePopupSelector }) {
   const addNewCardPopup = document.querySelector(`.${addNewCardPopupSelector}`);
   const photosContainer = document.querySelector(`.${photosContainerSelector}`);
   const cardTemplate = document.querySelector(`#${photoCardTemplateSelector}`).content;
   const imageUrlInput = addNewCardPopup.querySelector(`.${imageUrlInputSelector}`);
   const mestoNameInput = addNewCardPopup.querySelector(`.${mestoNameInputSelector}`);
   
-  const card = createCardElement(cardTemplate, imageUrlInput.value, mestoNameInput.value);
+  const card = createCardElement(cardTemplate, imageUrlInput.value, mestoNameInput.value, imagePopupSelector);
   photosContainer.prepend(card);
   imageUrlInput.value = '';
   mestoNameInput.value = '';

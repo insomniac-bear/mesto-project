@@ -42,6 +42,7 @@ addNewCardForm.addEventListener('submit', (evt) => {
     photoCardTemplateSelector: 'photo-template',
     imageUrlInputSelector: 'form__item_el_image-url',
     mestoNameInputSelector: 'form__item_el_mesto-name',
+    imagePopupSelector: 'popup_type_full-image'
   })
 });
 
