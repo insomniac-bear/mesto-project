@@ -4,13 +4,12 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./pages/index.css">
   <title>Mesto</title>
 </head>
 <body>
   <div class="content">
     <header class="header">
-      <img src="./images/logo.svg" alt="Логотип Место Россия" class="logo">
+      <img src="<%=require('./images/logo.svg')%>" alt="Логотип Место Россия" class="logo">
     </header>
     <main class="main">
       <section class="profile" aria-label="Профиль пользователя">
@@ -115,10 +114,5 @@
       <button class="photo__delete-button" aria-label="Удалить"></button>
     </article>
   </template>
-  <script type="module" src="./components/utils.js"></script>
-  <script type="module" src="./components/validate.js"></script>
-  <script type="module" src="./components/card.js"></script>
-  <script type="module" src="./components/modal.js"></script>
-  <script type="module" src="./script.js"></script>
 </body>
 </html>

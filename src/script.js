@@ -2,6 +2,7 @@ import { closePopup, initialCards } from './components/utils.js';
 import { enableValidation } from './components/validate.js';
 import { initializationCards } from './components/card.js';
 import { editProfileFormHandler, openEditProfilePopup, addCardFormHandler, openAddNewCardPopup } from './components/modal.js';
+import './pages/index.css';
 
 const editProfilePopup = document.querySelector('.popup_type_edit-profile');
 const profile = document.querySelector('.profile');

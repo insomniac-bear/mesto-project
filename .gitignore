@@ -2,3 +2,5 @@ texts.md
 .idea
 .DStore
 .editorconfig
+node_modules
+dist
