@@ -11,6 +11,7 @@ const addNewCardPopup = document.querySelector(`.popup_type_add-card`);
 const photosContainer = document.querySelector(`.photos`);
 const imageUrlInput = addNewCardPopup.querySelector(`.form__item_el_image-url`);
 const mestoNameInput = addNewCardPopup.querySelector(`.form__item_el_mesto-name`);
+const submitBtn = addNewCardPopup.querySelector('.form__submit');
 
 
 export function editProfileFormHandler (evt) {
@@ -32,6 +33,8 @@ export function addCardFormHandler (evt) {
   photosContainer.prepend(card);
   imageUrlInput.value = '';
   mestoNameInput.value = '';
+  submitBtn.classList.add('form__submit_inactive');
+  submitBtn.setAttribute('disabled', '');
   closePopup(addNewCardPopup);
 };
 
