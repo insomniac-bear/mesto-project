@@ -2,12 +2,17 @@ import { closePopup, initialCards } from './components/utils.js';
 import { enableValidation } from './components/validate.js';
 import { initializationCards } from './components/card.js';
 import { editProfileFormHandler, openEditProfilePopup, addCardFormHandler, openAddNewCardPopup } from './components/modal.js';
+import API from './components/api.js';
 import './pages/index.css';
 
 const editProfilePopup = document.querySelector('.popup_type_edit-profile');
 const profile = document.querySelector('.profile');
 const editProfileButton = profile.querySelector('.profile__button-edit');
 const addNewCardButton = profile.querySelector('.profile__button-add');
+const profileName = profile.querySelector('.profile__name');
+const profileProfession = profile.querySelector('.profile__profession');
+const profileAvatar = profile.querySelector('.profile__avatar');
+
 const editProfileForm = editProfilePopup.querySelector('.form_type_edit-profile');
 const addNewCardPopup = document.querySelector('.popup_type_add-card');
 const addNewCardForm = addNewCardPopup.querySelector('.form_type_add-card');
@@ -15,11 +20,8 @@ const addNewCardForm = addNewCardPopup.querySelector('.form_type_add-card');
 const allPopups = document.querySelectorAll('.popup');
 
 editProfileForm.addEventListener('submit', editProfileFormHandler);
-
 editProfileButton.addEventListener('click', openEditProfilePopup);
-
 addNewCardForm.addEventListener('submit', addCardFormHandler);
-
 addNewCardButton.addEventListener('click', openAddNewCardPopup);
 
 allPopups.forEach(function (element) {
@@ -39,4 +41,16 @@ enableValidation({
   errorClass: 'form__item-error_active',
 });
 
-initializationCards(initialCards);
+API.getUser()
+  .then(res => {
+    profileName.textContent = res.name;
+    profileProfession.textContent = res.about;
+    profileAvatar.style = `background-image: url(${res.avatar})`;
+  })
+  .catch(err => console.log(err));
+
+API.getCards()
+  .then(cards => {
+    initializationCards(cards);
+  })
+  .catch(err => console.log(err));
