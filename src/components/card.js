@@ -7,7 +7,7 @@ const cardContainer = document.querySelector(`.photos`);
 
 function addReactionListener (button) {
   button.addEventListener('click', function () {
-    button.classList.toggle('photo__reaction_active');
+    button.classList.toggle('photo__likes-button_active');
   });
 };
 function deleteCard (evt) {
@@ -24,21 +24,23 @@ function clickOnImageButton (evt) {
   openPopup(imagePopup);
 };
 
-export function createCardElement (imageLink, imageName) {
+export function createCardElement (imageLink, imageName, likesCount = 0) {
   const photoCard = cardTemplate.cloneNode(true);
   const imageButton = photoCard.querySelector('.photo__image');
+  const likesCountElement = photoCard.querySelector('.photo__likes-count');
   imageButton.style = `background-image: url(${imageLink})`;
   imageButton.dataset.image = imageLink;
+  likesCountElement.textContent = likesCount;
   imageButton.addEventListener('click', clickOnImageButton);
   photoCard.querySelector('.photo__description-text').textContent = imageName;
-  addReactionListener(photoCard.querySelector('.photo__reaction'));
+  addReactionListener(photoCard.querySelector('.photo__likes-button'));
   photoCard.querySelector('.photo__delete-button').addEventListener('click', deleteCard);
   return photoCard;
 }
 
 export function initializationCards (initialCards) {
   initialCards.forEach(function (card) {
-    const newCard = createCardElement(card.link, card.name);
+    const newCard = createCardElement(card.link, card.name, card.likes.length);
     cardContainer.append(newCard);
   });
 }

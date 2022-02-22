@@ -1,17 +1,18 @@
-.photo__reaction {
+.photo__likes-button {
   display: block;
+  padding-top: 17px;
   width: 22px;
-  height: 28px;
   background-color: initial;
   background-image: url(../../../images/icon-heart.svg);
   background-repeat: no-repeat;
   background-size: contain;
-  background-position: center;
+  background-position: top center;
   border: none;
+  box-sizing: border-box;
   transition: opacity .3s ease;
   cursor: pointer;
 }
 
-.photo__reaction:hover {
+.photo__likes-icon:hover {
   opacity: .5;
 }
