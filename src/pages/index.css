@@ -23,8 +23,9 @@
 @import url(../blocks/photo/__image/photo__image.css);
 @import url(../blocks/photo/__description/photo__description.css);
 @import url(../blocks/photo/__description-text/photo__description-text.css);
-@import url(../blocks/photo/__reaction/photo__reaction.css);
-@import url(../blocks/photo/__reaction/_active/photo__reaction_active.css);
+@import url(../blocks/photo/__likes-button/photo__likes-button.css);
+@import url(../blocks/photo/__likes-button/_active/photo__likes-button_active.css);
+@import url(../blocks/photo/__likes-count/photo__likes-count.css);
 @import url(../blocks/photo/__delete-button/photo__delete-button.css);
 /* --- Footer Block --- */
 @import url(../blocks/footer/footer.css);
