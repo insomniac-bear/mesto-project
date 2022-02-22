@@ -12,9 +12,8 @@ const profileSubmitButton = editProfilePopup.querySelector('.form__submit');
 const addNewCardPopup = document.querySelector(`.popup_type_add-card`);
 const photosContainer = document.querySelector(`.photos`);
 const imageUrlInput = addNewCardPopup.querySelector(`.form__item_el_image-url`);
+const addNewCardSubmitButton = addNewCardPopup.querySelector('.form__submit');
 const mestoNameInput = addNewCardPopup.querySelector(`.form__item_el_mesto-name`);
-const submitBtn = addNewCardPopup.querySelector('.form__submit');
-
 
 export function editProfileFormHandler (evt) {
   evt.preventDefault();
@@ -39,13 +38,22 @@ export function openEditProfilePopup () {
 
 export function addCardFormHandler (evt) {
   evt.preventDefault();
-  const card = createCardElement(imageUrlInput.value, mestoNameInput.value);
-  photosContainer.prepend(card);
-  imageUrlInput.value = '';
-  mestoNameInput.value = '';
-  submitBtn.classList.add('form__submit_inactive');
-  submitBtn.setAttribute('disabled', '');
-  closePopup(addNewCardPopup);
+  addNewCardSubmitButton.textContent = 'Сохранение...';
+  API.setCard(mestoNameInput.value, imageUrlInput.value)
+    .then(data => {
+      const card = createCardElement(data.link, data.name);
+      photosContainer.prepend(card);
+
+    })
+    .catch(err => console.log(err))
+    .finally(() => {
+      imageUrlInput.value = '';
+      mestoNameInput.value = '';
+      addNewCardSubmitButton.textContent = 'Создать';
+      addNewCardSubmitButton.classList.add('form__submit_inactive');
+      addNewCardSubmitButton.setAttribute('disabled', '');
+      closePopup(addNewCardPopup);
+    });
 };
 
 export function openAddNewCardPopup () {
