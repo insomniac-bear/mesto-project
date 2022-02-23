@@ -58,7 +58,23 @@ function deleteCard (cardId) {
     headers: config.headers,
   })
   .then(baseResponseHandler);
-}
+};
+
+function addLike (cardId) {
+  return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+    method: 'PUT',
+    headers: config.headers,
+  })
+  .then(baseResponseHandler);
+};
+
+function removeLike (cardId) {
+  return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+    method: 'DELETE',
+    headers: config.headers,
+  })
+  .then(baseResponseHandler);
+};
 
 export default {
   getUser,
@@ -66,4 +82,6 @@ export default {
   updateUser,
   setCard,
   deleteCard,
+  addLike,
+  removeLike,
 }
