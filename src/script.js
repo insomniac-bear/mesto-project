@@ -41,16 +41,17 @@ enableValidation({
   errorClass: 'form__item-error_active',
 });
 
-API.getUser()
-  .then(res => {
-    profileName.textContent = res.name;
-    profileProfession.textContent = res.about;
-    profileAvatar.style = `background-image: url(${res.avatar})`;
-  })
-  .catch(err => console.log(err));
+const getUserPromise = API.getUser();
+const getCardsPromise = API.getCards();
+const initialPromises = [getUserPromise, getCardsPromise];
 
-API.getCards()
-  .then(cards => {
-    initializationCards(cards);
+Promise.all(initialPromises)
+  .then((results) => {
+    const userInfo = results[0];
+    const cards = results[1];
+    profileName.textContent = userInfo.name;
+    profileProfession.textContent = userInfo.about;
+    profileAvatar.style = `background-image: url(${userInfo.avatar})`;
+    initializationCards(cards, userInfo._id);
   })
   .catch(err => console.log(err));

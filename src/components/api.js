@@ -50,6 +50,14 @@ function setCard (name, link) {
     })
   })
   .then(baseResponseHandler);
+};
+
+function deleteCard (cardId) {
+  return fetch(`${config.baseUrl}/cards/${cardId}`, {
+    method: 'DELETE',
+    headers: config.headers,
+  })
+  .then(baseResponseHandler);
 }
 
 export default {
@@ -57,4 +65,5 @@ export default {
   getCards,
   updateUser,
   setCard,
+  deleteCard,
 }
