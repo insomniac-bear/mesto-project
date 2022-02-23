@@ -105,7 +105,18 @@
     </div>
   </div>
   <template id="photo-template">
-    <article class="photo">
+    <article class="photo" id="">
+      <button class="photo__image" data-image=""></button>
+      <div class="photo__description">
+        <h2 class="photo__description-text"></h2>
+          <button class="photo__likes-button" aria-label="Нравится">
+            <span class="photo__likes-count"></span>
+          </button>
+      </div>
+    </article>
+  </template>
+  <template id="self-photo-template">
+    <article class="photo" id="">
       <button class="photo__image" data-image=""></button>
       <div class="photo__description">
         <h2 class="photo__description-text"></h2>
