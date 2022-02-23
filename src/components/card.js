@@ -1,5 +1,6 @@
 import API from './api.js';
 import { openPopup } from './utils.js';
+
 const imagePopup = document.querySelector('.popup_type_full-image');
 const fullImage = imagePopup.querySelector('.full-image__picture');
 const fullImageDescription = imagePopup.querySelector('.full-image__description');
@@ -8,16 +9,35 @@ const selfCardTemplate = document.querySelector(`#self-photo-template`).content;
 const cardContainer = document.querySelector(`.photos`);
 
 function addReactionListener (button) {
+  const cardItemElement = button.closest('.photo');
+  const likesCountElement = button.querySelector('.photo__likes-count');
+
   button.addEventListener('click', function () {
-    button.classList.toggle('photo__likes-button_active');
+    if (button.classList.contains('photo__likes-button_active')) {
+      API.removeLike(cardItemElement.id)
+        .then(res => {
+          likesCountElement.textContent = res.likes.length;
+          button.classList.remove('photo__likes-button_active');
+        })
+        .catch(err => console.log(err));
+    } else {
+      API.addLike(cardItemElement.id)
+        .then(res => {
+          likesCountElement.textContent = res.likes.length;
+          button.classList.add('photo__likes-button_active');
+        })
+        .catch(err => console.log(err));
+    }
   });
 };
+
 function deleteCard (evt) {
   const deleteButton = evt.target;
   const cardItem = deleteButton.closest('.photo');
   API.deleteCard(cardItem.id);
   cardItem.remove();
 };
+
 function clickOnImageButton (evt) {
   const imageButton = evt.target;
   const cardElement = imageButton.closest('.photo');
@@ -28,7 +48,7 @@ function clickOnImageButton (evt) {
   openPopup(imagePopup);
 };
 
-export function createCardElement (card, isSelf = true) {
+export function createCardElement (card, isSelf = true, isLiked = false) {
   const { _id, link, name, likes } = card;
 
   const photoCard = isSelf ? selfCardTemplate.cloneNode(true) : cardTemplate.cloneNode(true);
@@ -39,6 +59,10 @@ export function createCardElement (card, isSelf = true) {
   const likeButtonElement = photoCard.querySelector('.photo__likes-button');
   const likesCountElement = likeButtonElement.querySelector('.photo__likes-count');
   
+  if (isLiked) {
+    likeButtonElement.classList.add('photo__likes-button_active');
+  }
+
   cardElement.id = _id;
   imageButton.style = `background-image: url(${link})`;
   imageButton.dataset.image = link;
@@ -56,7 +80,8 @@ export function createCardElement (card, isSelf = true) {
 export function initializationCards (initialCards, userId) {
   initialCards.forEach(function (card) {
     const isSelf = userId === card.owner._id;
-    const newCard = createCardElement(card, isSelf);
+    const isLiked = Boolean(card.likes.find(like => like._id === userId));
+    const newCard = createCardElement(card, isSelf, isLiked);
     cardContainer.append(newCard);
   });
 }
