@@ -13,7 +13,9 @@
     </header>
     <main class="main">
       <section class="profile" aria-label="Профиль пользователя">
-        <div class="profile__avatar"></div>
+        <button class="profile__avatar">
+          <div class="profile__avatar-overlay"></div>
+        </button>
         <div class="profile__info">
           <h1 class="profile__name"></h1>
           <button type="button" class="profile__button-edit" aria-label="Редактировать профиль">
@@ -102,6 +104,44 @@
         <figcaption class="full-image__description">
         </figcaption>
       </figure>
+    </div>
+    <div class="popup popup_type_edit-avatar">
+      <div class="popup__container">
+        <button class="popup__close-button popup__close-button_place_add-card"></button>
+        <form name="new-place" class="form form_type_edit-avatar" novalidate>
+          <h2 class="form__title">Обновить аватар</h2>
+            <input
+              id="avatar-url-input"
+              type="url"
+              name="image-url"
+              class="form__item"
+              placeholder="Ссылка на аватар"
+              required
+              aria-label="Поле ввода ссылки на аватар"
+            >
+            <span class="form__item-error avatar-url-input-error"></span>
+            <button type="submit" class="form__submit" aria-label="Сохранить новый аватар">Сохранить</button>
+        </form>
+      </div>
+    </div>
+    <div class="popup popup_type_delete-card">
+      <div class="popup__container">
+        <button class="popup__close-button popup__close-button_place_add-card"></button>
+        <form name="new-place" class="form form_type_delete-card" novalidate>
+          <h2 class="form__title">Вы уверены?</h2>
+            <input
+              id="delete-card-input"
+              type="text"
+              name="id-card"
+              class="form__item form__item_type_hidden"
+              placeholder="Ссылка на аватар"
+              required
+              aria-label="Поле для хранения id удаляемой карточки"
+            >
+            <span class="form__item-error delete-card-input-error"></span>
+            <button type="submit" class="form__submit" aria-label="Подтвердить удаление">Да</button>
+        </form>
+      </div>
     </div>
   </div>
   <template id="photo-template">

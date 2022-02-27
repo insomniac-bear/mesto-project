@@ -76,6 +76,17 @@ function removeLike (cardId) {
   .then(baseResponseHandler);
 };
 
+function patchAvatar (avatar) {
+  return fetch(`${config.baseUrl}/users/me/avatar`, {
+    method: 'PATCH',
+    headers: config.headers,
+    body: JSON.stringify({
+      avatar
+    })
+  })
+  .then(baseResponseHandler);
+};
+
 export default {
   getUser,
   getCards,
@@ -84,4 +95,5 @@ export default {
   deleteCard,
   addLike,
   removeLike,
+  patchAvatar,
 }
