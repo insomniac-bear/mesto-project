@@ -1,21 +1,25 @@
-import { closePopup, initialCards } from './components/utils.js';
+import { closePopup } from './components/utils.js';
 import { enableValidation } from './components/validate.js';
 import { initializationCards } from './components/card.js';
-import { editProfileFormHandler, openEditProfilePopup, addCardFormHandler, openAddNewCardPopup } from './components/modal.js';
+import { editProfileFormHandler, openEditProfilePopup, addCardFormHandler, openAddNewCardPopup, openEditAvatarPopup, patchAvatarHandler, confirmationFormHandler } from './components/modal.js';
 import API from './components/api.js';
 import './pages/index.css';
 
 const editProfilePopup = document.querySelector('.popup_type_edit-profile');
 const profile = document.querySelector('.profile');
 const editProfileButton = profile.querySelector('.profile__button-edit');
-const addNewCardButton = profile.querySelector('.profile__button-add');
 const profileName = profile.querySelector('.profile__name');
 const profileProfession = profile.querySelector('.profile__profession');
-const profileAvatar = profile.querySelector('.profile__avatar');
-
 const editProfileForm = editProfilePopup.querySelector('.form_type_edit-profile');
+
+const addNewCardButton = profile.querySelector('.profile__button-add');
 const addNewCardPopup = document.querySelector('.popup_type_add-card');
 const addNewCardForm = addNewCardPopup.querySelector('.form_type_add-card');
+
+const profileAvatar = profile.querySelector('.profile__avatar');
+const editAvatarForm = document.querySelector('.form_type_edit-avatar');
+
+const confirmationForm = document.querySelector('.form_type_delete-card');
 
 const allPopups = document.querySelectorAll('.popup');
 
@@ -23,6 +27,9 @@ editProfileForm.addEventListener('submit', editProfileFormHandler);
 editProfileButton.addEventListener('click', openEditProfilePopup);
 addNewCardForm.addEventListener('submit', addCardFormHandler);
 addNewCardButton.addEventListener('click', openAddNewCardPopup);
+profileAvatar.addEventListener('click', openEditAvatarPopup);
+editAvatarForm.addEventListener('submit', patchAvatarHandler);
+confirmationForm.addEventListener('submit', confirmationFormHandler);
 
 allPopups.forEach(function (element) {
   element.addEventListener('click', function (evt) {

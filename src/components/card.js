@@ -1,5 +1,6 @@
 import API from './api.js';
 import { openPopup } from './utils.js';
+import { openConfirmationPopup } from './modal';
 
 const imagePopup = document.querySelector('.popup_type_full-image');
 const fullImage = imagePopup.querySelector('.full-image__picture');
@@ -34,8 +35,7 @@ function addReactionListener (button) {
 function deleteCard (evt) {
   const deleteButton = evt.target;
   const cardItem = deleteButton.closest('.photo');
-  API.deleteCard(cardItem.id);
-  cardItem.remove();
+  openConfirmationPopup(cardItem.id);
 };
 
 function clickOnImageButton (evt) {
@@ -49,7 +49,7 @@ function clickOnImageButton (evt) {
 };
 
 export function createCardElement (card, isSelf = true, isLiked = false) {
-  const { _id, link, name, likes } = card;
+  const { _id, link, name, likes = 0 } = card;
 
   const photoCard = isSelf ? selfCardTemplate.cloneNode(true) : cardTemplate.cloneNode(true);
 
