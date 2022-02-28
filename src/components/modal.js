@@ -31,11 +31,11 @@ export function editProfileFormHandler (evt) {
     .then(data => {
       profileName.textContent = data.name;
       profileProfession.textContent = data.about;
+      closePopup(editProfilePopup);
     })
     .catch(err => console.log(err))
     .finally(() => {
       profileSubmitButton.textContent = 'Сохраненить';
-      closePopup(editProfilePopup);
     });
 };
 
@@ -50,18 +50,17 @@ export function addCardFormHandler (evt) {
   addNewCardSubmitButton.textContent = 'Сохранение...';
   API.setCard(mestoNameInput.value, imageUrlInput.value)
     .then(data => {
-      const card = createCardElement(data.link, data.name);
+      const card = createCardElement(data);
       photosContainer.prepend(card);
-
-    })
-    .catch(err => console.log(err))
-    .finally(() => {
       imageUrlInput.value = '';
       mestoNameInput.value = '';
-      addNewCardSubmitButton.textContent = 'Создать';
       addNewCardSubmitButton.classList.add('form__submit_inactive');
       addNewCardSubmitButton.setAttribute('disabled', '');
       closePopup(addNewCardPopup);
+    })
+    .catch(err => console.log(err))
+    .finally(() => {
+      addNewCardSubmitButton.textContent = 'Создать';
     });
 };
 
@@ -89,12 +88,14 @@ export function patchAvatarHandler (evt) {
   API.patchAvatar(avatarInputElement.value)
     .then(data => {
       profileAvatar.style = `background-image: url(${data.avatar})`;
+      avatarInputElement.value = '';
+      avatarSubmitButton.classList.add('form__submit_inactive');
+      avatarSubmitButton.setAttribute('disabled', '');
+      closePopup(editAvatarPopup);
     })
     .catch(err => console.log(err))
     .finally(() => {
       avatarSubmitButton.textContent = 'Сохранить';
-      avatarInputElement.value = '';
-      closePopup(editAvatarPopup);
     })
 };
 
@@ -111,11 +112,13 @@ export function confirmationFormHandler (evt) {
   const cardElement = document.getElementById(`${cardId}`);
 
   API.deleteCard(cardId)
-    .then(() => cardElement.remove())
+    .then(() => {
+      cardElement.remove();
+      closePopup(confirmationPopup);
+    })
     .catch(err => console.log(err))
     .finally(() => {
       confirmationInputElement.value = '';
-      closePopup(confirmationPopup);
     });
   
 }
